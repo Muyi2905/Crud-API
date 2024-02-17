@@ -9,6 +9,8 @@ app.get('/', (req, res) => {
     res.send("hello")
 })
 
+app.post
+
 mongoose.connect('mongodb://localhost:27017/Crud', {
     useNewurlparser: true,
     useUnifiedtopology: true
@@ -16,7 +18,8 @@ mongoose.connect('mongodb://localhost:27017/Crud', {
 
 const peopleSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true }
+    email: { type: String, required: true }, 
+    occupation: {type : String, required: true}
 });
 
 const People = mongoose.model(People, peopleSchema)
