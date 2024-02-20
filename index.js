@@ -1,9 +1,11 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 
-const express = require('express');
-const mongoose = require('mongoose');
 const app = express();
+const port = 5000;
 
-const port = 3000;
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
     res.send("hello")
@@ -19,7 +21,7 @@ const peopleSchema = new mongoose.Schema({
     email: { type: String, required: true }
 });
 
-const People = mongoose.model(People, peopleSchema)
+const People = mongoose.model('People', peopleSchema)
 
 app.listen(port, () => {
     console.log(`server is listening on ${port}`)
