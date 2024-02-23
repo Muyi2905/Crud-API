@@ -15,6 +15,13 @@ mongoose.connect('mongodb://localhost:27017/Crud', {
     useUnifiedtopology: true
 })
 
+    .then(() => {
+        console.log("database connected")
+    })
+    .catch((error) => {
+        console.log("Couldnt connect to database")
+    })
+
 
 app.listen(port, () => {
     console.log(`server is listening on ${port}`)
