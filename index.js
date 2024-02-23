@@ -1,23 +1,19 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import usersRoutes from './routes/users.js';
-
-
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser")
 const app = express();
 const port = 5000;
 
 app.use(bodyParser.json())
-app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {
     res.send("hello")
 })
 
-// mongoose.connect('mongodb://localhost:27017/Crud', {
-//     useNewurlparser: true,
-//     useUnifiedtopology: true
-// })
+mongoose.connect('mongodb://localhost:27017/Crud', {
+    useNewurlparser: true,
+    useUnifiedtopology: true
+})
 
 
 app.listen(port, () => {
