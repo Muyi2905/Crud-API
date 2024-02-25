@@ -21,6 +21,19 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
+app.patch("/api/products/:id", async (req, res) => {
+  const productId = req.params.id;
+  const updateData = req.body;
+
+  try {
+    // Update the product by its ID
+    const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
+
+    if (!updatedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+
 mongoose
   .connect("mongodb://localhost:27017/Crud", {
     useNewUrlParser: true, // Update if using Mongoose >= 6.0.0
