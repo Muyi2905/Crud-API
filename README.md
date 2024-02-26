@@ -16,10 +16,13 @@ This repository contains a simple CRUD (Create, Read, Update, Delete) API built 
    git clone https://github.com/your-username/your-repository.git
 
 2. Navigate to the project directory :
-   
-   cd your-repository
-3. Install dependencies using npm 
+  ```bash
+  cd your repository 
+
+3. Install dependencies using 
+``` bash  
     npm install
+```
 
 4. Start the server 
     npm start 
