@@ -90,7 +90,7 @@ coverage/
 **/stylelint-*.log
 
 # Additional files you might want to ignore
-README.md
+
 LICENSE
 CHANGELOG.md
 package-lock.json
