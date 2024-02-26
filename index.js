@@ -6,6 +6,7 @@ const app = express();
 const port = 5000;
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -36,11 +37,34 @@ app.get("/api/products/:id", async (req, res) => {
 app.put("/api/products/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await Product.findByIdAndUpdate(id, req.body);
-    if (!product) return res.status(400).json(error);
+    const product = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    if (!product) {
+      return res.status(400).json(error);
+    }
+    const updatedProduct = await Product.findById(id);
+    res.status(200).json(updatedProduct);
   } catch (error) {
     res.status(500).json(error);
     console.error("error updating product");
+  }
+});
+
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findByIdAndDelete(id);
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting product: " + error.message });
+    console.error("Error deleting product:", error);
   }
 });
 
