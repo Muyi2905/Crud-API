@@ -11,6 +11,39 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Error getting product: " + error.message });
+  }
+});
+
+app.get("/api/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: "Error getting product: " + error.message });
+  }
+});
+
+app.put("/api/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findByIdAndUpdate(id, req.body);
+    if (!product) return res.status(400).json(error);
+  } catch (error) {
+    res.status(500).json(error);
+    console.error("error updating product");
+  }
+});
+
 app.post("/api/products", async (req, res) => {
   try {
     const product = await Product.create(req.body);
@@ -20,19 +53,6 @@ app.post("/api/products", async (req, res) => {
     console.error("Error in app.post:", error);
   }
 });
-
-app.patch("/api/products/:id", async (req, res) => {
-  const productId = req.params.id;
-  const updateData = req.body;
-
-  try {
-    // Update the product by its ID
-    const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
-
-    if (!updatedProduct) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
 
 mongoose
   .connect("mongodb://localhost:27017/Crud", {
