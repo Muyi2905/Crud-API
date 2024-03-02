@@ -1,7 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const Product = require("./models/products.js"); // Ensure this file exists
+const Product = require("./models/products.js"); 
+
+
 const app = express();
 const port = 5000;
 
